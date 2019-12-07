@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
-
 public class StringExercise {
     public static void main (String [] args) {
         Scanner scanner = new Scanner(System.in);
@@ -24,22 +22,16 @@ public class StringExercise {
 
     public static int countTheWantedCharacter(String stringInput, String characterInput) {
         String arr[] = stringInput.split("");
-        int count = 0;
 
-        for(String a : arr) {
-            if (a.equals(characterInput)) {
-                count++;
-
-            }
-        }
-        return count;
+        return countCharacterInArray(arr, characterInput);
     }
 
     public static void countDifferentCharacters (String stringInput) {
-        String [] arr = stringInput.split("");
-
-        // Arrays.sort has no effect with array of Stringss - don't need this
+        // Arrays.sort has no effect with array of Strings - don't do this
+        // String [] arr = stringInput.split("");
         // Strings Arrays.sort(arr);
+
+        String [] arr = sortString(stringInput).split("");
 
         ArrayList<String> arr1 = new ArrayList<>();
 
@@ -56,28 +48,44 @@ public class StringExercise {
             else if (!(arr[i].equals(arr[i-1]))) {
                count++;
                arr1.add(arr[i]);
-
             }
         }
 
         System.out.println("The number of different characters in the String: " + count);
 
-        int numberOfEachCharacter = 0;
-
         for (int i = 0; i < arr1.size(); i++) {
-            System.out.println("Character: " + arr1.get(i));
+            String characterInput = arr1.get(i);
+            System.out.println("Character: " + characterInput);
+            int charCount = countCharacterInArray(arr, characterInput);
 
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[j].equals(arr1.get(i))) {
-                    numberOfEachCharacter++;
-                }
-            }
-
-            System.out.println("The number of times that " + arr1.get(i) + " shows up: " + numberOfEachCharacter);
-            numberOfEachCharacter = 0;
+            System.out.println("The number of times that " + characterInput + " shows up: " + charCount);
         }
 
 
+    }
+
+    public static int countCharacterInArray(String[] arr, String characterInput) {
+        int count = 0;
+
+        for(String a : arr) {
+            if (a.equals(characterInput)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    // Method to sort a string alphabetically
+    public static String sortStringToArray(String stringInput) {
+        // convert input string to char array
+        char tempArray[] = stringInput.toCharArray();
+
+        // sort tempArray
+        Arrays.sort(tempArray);
+
+        // return new sorted string
+        return new String(tempArray);
     }
 }
 
